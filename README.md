@@ -1,29 +1,24 @@
-# appcent-case
+# Appcent Case
 
-## Project setup
-```
-npm install
-```
+Appcent Study Case
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Run the Project
 
-### Compiles and minifies for production
-```
-npm run build
-```
+  - Clone the git repository
+    `git clone https://github.com/yusufborucu/appcent-case`
+  - Modify the `config/env.js` file in accordance with your [TheMovieDB](https://developers.themoviedb.org/3/getting-started/introduction) API settings.
+  - Install required packages by running; `npm install`
+  - Compiles and hot-reloads for development
+    `npm run serve`
+  - Compiles and minifies for production
+    `npm run build`
 
-### Run your tests
-```
-npm run test
-```
+## Screenshots
 
-### Lints and fixes files
-```
-npm run lint
-```
+### Home
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![](public/home.png)
+
+### Movie Detail
+
+![](public/detail.png)
