@@ -9,7 +9,9 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     popularMovies: [],
-    trendMovies: []
+    trendMovies: [],
+    movieDetail: {},
+    cast: {}
   },
   actions,
   getters,

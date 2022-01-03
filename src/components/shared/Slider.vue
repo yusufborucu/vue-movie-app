@@ -55,10 +55,10 @@ export default {
         <router-link :to="{ path: 'detail/' + item.id }" tag="a">
           <div class="movie-item">
             <div class="top-info">
-              <span class="rate">{{ item.rate }}</span>
-              <span class="date">{{ item.date }}</span>
+              <span class="rate">{{ item.vote_average }}</span>
+              <span class="date">{{ item.release_date.substr(0, 4) }}</span>
             </div>              
-            <img :src="item.image" class="poster" />
+            <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${item.poster_path}`" class="poster" />
             <span class="title">{{ item.title }}</span>              
           </div>          
         </router-link>

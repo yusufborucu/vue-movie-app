@@ -1,6 +1,14 @@
 <script>
+import { mapGetters } from "vuex"
+
 export default {
-    
+  created() {
+    this.$store.dispatch("movieDetail", { id: this.$route.params.id })
+    this.$store.dispatch("cast", { id: this.$route.params.id })
+  },
+  computed: {
+    ...mapGetters(["getMovieDetail", "getCast"])
+  }
 }
 </script>
 
@@ -8,37 +16,25 @@ export default {
   <div class="container">
     <div class="detail">      
       <div class="top-infos">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg" />
+        <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${getMovieDetail.poster_path}`" />
         <div class="texts">
           <div class="general">
-            <h1>Spider-Man: No Way Home</h1>
-            <span class="rate">8.4</span>
-            <span class="date">15/12/2021</span>
+            <h1>{{ getMovieDetail.title }}</h1>
+            <span class="rate">{{ getMovieDetail.vote_average }}</span>
+            <span class="date">{{ getMovieDetail.release_date.substr(0, 4) }}</span>
           </div>          
           <ul class="categories">
-            <li>Action</li>
-            <li>Adventure</li>
-            <li>Science Fiction</li>
+            <li v-for="genre in getMovieDetail.genres" v-bind:key="genre.id">{{ genre.name }}</li>
           </ul>
-          <span>Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.</span>
+          <span>{{ getMovieDetail.overview }}</span>
         </div>        
       </div>      
       <h2>Cast</h2>
       <ul class="cast">
-        <li>
-          <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/2qhIDp44cAqP2clOgt2afQI07X8.jpg" />
-          <span class="name">Tom Holland</span>
-          <span class="title">Peter Parker / Spider-Man</span>
-        </li>
-        <li>
-          <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/2qhIDp44cAqP2clOgt2afQI07X8.jpg" />
-          <span class="name">Tom Holland</span>
-          <span class="title">Peter Parker / Spider-Man</span>
-        </li>
-        <li>
-          <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/2qhIDp44cAqP2clOgt2afQI07X8.jpg" />
-          <span class="name">Tom Holland</span>
-          <span class="title">Peter Parker / Spider-Man</span>
+        <li v-for="item in getCast" v-bind:key="item.id">
+          <img :src="item.profile_path !== null ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}` : `https://via.placeholder.com/100x150`" />
+          <span class="name">{{ item.name }}</span>
+          <span class="title">{{ item.character }}</span>
         </li>
       </ul>
     </div>    
@@ -51,12 +47,20 @@ export default {
   flex-direction: column;
   align-items: center;
 
+  @media screen and (max-width: 400px) {
+    flex-direction: row;
+  }
+
   .detail { 
     width: 60%;
 
     .top-infos { 
       display: flex;
       margin: 1rem 0 1rem 0;
+
+      @media screen and (max-width: 400px) {
+        display: block;
+      }   
 
       .texts { 
         margin-left: 1rem;
@@ -107,6 +111,7 @@ export default {
 
     .cast { 
       display: flex;
+      overflow: auto;
 
       li {
         display: flex;
